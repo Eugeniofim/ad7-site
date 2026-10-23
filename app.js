@@ -9,7 +9,7 @@
    ===================================================== */
 'use strict';
 
-const APP_VERSAO = '0.2.1';
+const APP_VERSAO = '0.2.2';
 const FAV_KEY = 'ad7_fav_v1', COOKIE_KEY = 'ad7_cookies_v1';
 const C = APP_CONFIG;
 const $ = (s, el) => (el || document).querySelector(s);
@@ -400,6 +400,7 @@ async function render() {
     default: html = '<div class="wrap pagina"><h1>Página não encontrada</h1><p class="intro"><a href="#/">Voltar ao início</a></p></div>';
   }
   document.body.classList.toggle('sem-heroi', !heroi);
+  document.body.classList.toggle('inicio', r.nome === 'inicio');
   app.innerHTML = html;
   document.title = titulo;
   moldura();

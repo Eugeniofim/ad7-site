@@ -48,6 +48,8 @@ header.cab .cab-row { display: flex; align-items: center; justify-content: space
 header.cab.fixa .cab-row, body.sem-heroi header.cab .cab-row { min-height: 84px; }
 .logo { display: inline-flex; align-items: center; }
 .logo img { height: 63px; width: auto; display: block; }
+body.inicio header.cab:not(.fixa) .logo img { height: 126px; }
+body.inicio header.cab:not(.fixa) .cab-row { min-height: 150px; }
 header.cab.fixa .logo img, body.sem-heroi header.cab .logo img { height: 50px; }
 .cab-dir { display: flex; align-items: center; gap: 22px; }
 .creci { position: absolute; top: 6px; right: 20px; font-size: 10px; letter-spacing: .06em; color: rgba(255,255,255,.75); }
@@ -331,6 +333,7 @@ footer.rod .social { display: flex; gap: 14px; margin: 12px 0 6px; } footer.rod 
   .creci, .cab-links > a:not(.social a), .cab-links .social { display: none; }
   .cab-links > a.area { display: inline; max-width: none; }
   header.cab .cab-row { min-height: 84px; } .logo img { height: 48px; }
+  body.inicio header.cab:not(.fixa) .logo img { height: 84px; } body.inicio header.cab:not(.fixa) .cab-row { min-height: 110px; }
   .hero { min-height: 560px; padding: 120px 16px 56px; } .hero h1 { font-size: 36px; } .hero p { font-size: 16px; }
   .busca { flex-direction: column; border-radius: 16px; padding: 8px; }
   .busca select, .busca select:first-of-type { border-radius: 0; border-right: 0; border-bottom: 1px solid var(--linha); width: 100%; height: 52px; }
