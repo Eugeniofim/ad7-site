@@ -10,26 +10,22 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="estilo.css?v=0.1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css?v=0.2.0">
 </head>
 <body>
 <div id="raiz" style="display:flex;flex-direction:column;min-height:100vh">
 
-<div class="topo"><div class="wrap">
+<header class="cab" id="cab">
   <span class="creci" id="topo-creci"></span>
-  <div style="display:flex;flex-wrap:wrap;gap:18px" id="topo-links"></div>
-</div></div>
-
-<header class="cab"><div class="wrap">
-  <a href="#/" class="logo" aria-label="AD7 Imóveis, início"><img src="arte/logo.png" alt="AD7 Imóveis, assessoria imobiliária"></a>
-  <nav class="menu" aria-label="Principal" id="menu"></nav>
-  <div class="cab-acoes">
-    <a class="btn btn-ghost btn-p" id="cab-wa" href="#" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l1.3-3.9A8 8 0 1 1 8.2 19.1L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.3-1.3 2 .9-.3 1.8c-3.6.6-8.8-4.6-8.2-8.2l1.8-.3.9 2L9 9.5z"/></svg>WhatsApp</a>
-    <button type="button" class="hamb" id="hamb" aria-label="Abrir o menu" aria-expanded="false"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="wrap cab-row">
+    <a href="#/" class="logo" aria-label="AD7 Imóveis, início"><img src="arte/logo-claro.png" srcset="arte/logo-claro@2x.png 2x" alt="AD7 Imóveis, assessoria imobiliária"></a>
+    <div class="cab-dir">
+      <div class="cab-links" id="topo-links"></div>
+      <button type="button" class="hamb" id="hamb" aria-label="Abrir o menu" aria-expanded="false"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
   </div>
-</div>
-<nav class="menu-cel" id="menu-cel" aria-label="Menu do celular"></nav>
+  <nav class="menu-cel" id="menu-cel" aria-label="Menu"><div class="wrap" id="menu"></div></nav>
 </header>
 
 <main id="app"><div class="carregando">Carregando os imóveis…</div></main>
@@ -44,7 +40,7 @@
   <button type="button" class="btn btn-line btn-p" data-act="cookies-nao">Recusar</button>
   <button type="button" class="btn btn-navy btn-p" data-act="cookies-sim">Aceitar</button>
 </div>
-<a class="wa-flut" id="wa-flut" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8.2 19.1L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.3-1.3 2 .9-.3 1.8c-3.6.6-8.8-4.6-8.2-8.2l1.8-.3.9 2L9 9.5z"/></svg></a>
+<div class="wa-flut" id="wa-flut"></div>
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Fotos do imóvel">
   <button type="button" class="fechar" data-act="lb-fechar" aria-label="Fechar">✕</button>
   <img id="lb-img" alt="">
@@ -52,11 +48,11 @@
 </div>
 </div>
 
-<script src="config.js?v=0.1.0"></script>
-<script src="nuvem.js?v=0.1.0"></script>
-<script src="auth.js?v=0.1.0"></script>
-<script src="catalogo.js?v=0.1.0"></script>
-<script src="pedidos.js?v=0.1.0"></script>
-<script src="app.js?v=0.1.0"></script>
+<script src="config.js?v=0.2.0"></script>
+<script src="nuvem.js?v=0.2.0"></script>
+<script src="auth.js?v=0.2.0"></script>
+<script src="catalogo.js?v=0.2.0"></script>
+<script src="pedidos.js?v=0.2.0"></script>
+<script src="app.js?v=0.2.0"></script>
 </body>
 </html>
