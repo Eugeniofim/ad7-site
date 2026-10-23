@@ -9,7 +9,7 @@
    ===================================================== */
 'use strict';
 
-const APP_VERSAO = '0.2.3';
+const APP_VERSAO = '0.2.4';
 const FAV_KEY = 'ad7_fav_v1', COOKIE_KEY = 'ad7_cookies_v1';
 const C = APP_CONFIG;
 const $ = (s, el) => (el || document).querySelector(s);
@@ -102,11 +102,11 @@ function vInicio() {
   const outros = filtrar({ neg: 'venda' }).filter(im => im.tipo !== 'Casa').slice(0, 6);
   const r = resumoCatalogo();
   const estilos = [['Frente ao mar', { mar: '1' }], ['Casa de família', { dorm: '3', neg: 'venda' }], ['Temporada', { neg: 'temporada' }], ['Com piscina', { piscina: '1' }], ['Mobiliados', { mobiliado: '1' }], ['Comercial', { perfil: 'Comercial' }], ['Terrenos para construir', { tipo: 'Terreno' }], ['Sobrados', { tipo: 'Sobrado' }]];
-  const ladrilhos = estilos.map(([nome, f]) => { const im = filtrar(f)[0]; return '<a class="ladrilho" href="' + linkBusca(f) + '" style="background-image:url(' + esc(im ? im.capa : 'arte/capa.jpg') + ')"><span>' + esc(nome) + '</span></a>'; }).join('');
+  const ladrilhos = estilos.map(([nome, f]) => { const im = filtrar(f)[0]; return '<a class="ladrilho" href="' + linkBusca(f) + '" style="background-image:url(' + esc(im ? im.capa : 'arte/capa-1400.jpg') + ')"><span>' + esc(nome) + '</span></a>'; }).join('');
   const porTipo = ['Casa', 'Apartamento', 'Sobrado', 'Terreno'].map(t => '<a href="' + linkBusca({ neg: 'venda', tipo: t }) + '">' + t + (t === 'Terreno' ? 's' : 's') + ' à venda em Pontal do Paraná</a>').join('');
   const porBairro = r.bairros.slice(0, 7).map(b => '<a href="' + linkBusca({ bairro: b }) + '">Imóveis em ' + esc(b) + '</a>').join('');
   const porTemporada = ['Casa', 'Apartamento', 'Sobrado'].map(t => '<a href="' + linkBusca({ neg: 'temporada', tipo: t }) + '">' + t + ' para temporada no litoral</a>').join('') + '<a href="' + linkBusca({ neg: 'temporada', mar: '1' }) + '">Temporada frente ao mar</a>';
-  return '<section class="hero" style="background-image:url(arte/capa.jpg)" aria-label="Busca de imóveis"><div>'
+  return '<section class="hero" aria-label="Busca de imóveis"><div>'
     + '<h1>A sua imobiliária no litoral do Paraná</h1>'
     + '<p>Na AD7 você tem a melhor e mais completa experiência imobiliária em Pontal do Paraná: compra, venda, aluguel e temporada.</p>'
     + '<form class="busca" data-form="busca" aria-label="Buscar imóvel">'

@@ -5,10 +5,10 @@
    são centenas, no servidor do Tecimob; o app guarda as que a pessoa viu. */
 'use strict';
 
-const VERSION = 'ad7-v0.2.3';
+const VERSION = 'ad7-v0.2.4';
 const CORE = [
   './', './index.html', './config.js', './nuvem.js', './auth.js', './catalogo.js', './pedidos.js', './app.js',
-  './estilo.css', './manifest.webmanifest', './dados/imoveis.json', './arte/logo-claro.png', './arte/logo-claro@2x.png', './arte/emblema.png', './arte/emblema@2x.png', './arte/capa.jpg', './icon-192.png',
+  './estilo.css', './manifest.webmanifest', './dados/imoveis.json', './arte/logo-claro.png', './arte/logo-claro@2x.png', './arte/emblema.png', './arte/emblema@2x.png', './arte/capa-1400.jpg', './icon-192.png',
 ];
 
 self.addEventListener('install', (e) => {
