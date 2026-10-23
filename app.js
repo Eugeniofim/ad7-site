@@ -9,7 +9,7 @@
    ===================================================== */
 'use strict';
 
-const APP_VERSAO = '0.2.2';
+const APP_VERSAO = '0.2.3';
 const FAV_KEY = 'ad7_fav_v1', COOKIE_KEY = 'ad7_cookies_v1';
 const C = APP_CONFIG;
 const $ = (s, el) => (el || document).querySelector(s);
@@ -365,7 +365,7 @@ function moldura() {
     + '<a class="area" href="#/cliente">Área do Cliente</a><a href="#/favoritos">Meus Favoritos</a>'
     + '<div class="social"><a href="' + esc(C.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + ICO.insta + '</a><a href="' + esc(C.facebook) + '" target="_blank" rel="noopener" aria-label="Facebook">' + ICO.face + '</a></div>';
   $('#wa-flut').innerHTML = '<a href="' + wa() + '" target="_blank" rel="noopener" aria-label="Falar no WhatsApp do atendimento">' + ICO.wa + '</a><a href="' + wa('', C.whatsappAdriana) + '" target="_blank" rel="noopener" aria-label="Falar com a ' + esc(C.dona) + ' no WhatsApp">' + ICO.wa + '</a>';
-  $('#rodape').innerHTML = '<div><a class="marca" href="#/"><img src="arte/logo-claro.png" srcset="arte/logo-claro@2x.png 2x" alt="' + esc(C.nome) + '"></a><div class="social"><a href="' + esc(C.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + ICO.insta + '</a><a href="' + esc(C.facebook) + '" target="_blank" rel="noopener" aria-label="Facebook">' + ICO.face + '</a></div><span style="font-size:13px;font-weight:300;display:block;margin-top:6px">' + esc(C.slogan) + ' em Pontal do Paraná, do primeiro contato até a entrega das chaves.</span></div>'
+  $('#rodape').innerHTML = '<div><a class="marca" href="#/"><img src="arte/logo-claro.png" srcset="arte/logo-claro@2x.png 2x, arte/logo-claro@3x.png 3x" alt="' + esc(C.nome) + '"></a><div class="social"><a href="' + esc(C.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + ICO.insta + '</a><a href="' + esc(C.facebook) + '" target="_blank" rel="noopener" aria-label="Facebook">' + ICO.face + '</a></div><span style="font-size:13px;font-weight:300;display:block;margin-top:6px">' + esc(C.slogan) + ' em Pontal do Paraná, do primeiro contato até a entrega das chaves.</span></div>'
     + '<div><b>Para você</b><a href="#/negocie">Anuncie seu imóvel</a><br><a href="#/financie">Financie seu imóvel</a><br><a href="privacidade.html">Política de privacidade</a><br><a href="mailto:' + esc(C.emailPrivacidade) + '">Seus dados (LGPD)</a></div>'
     + '<div><b>Acesso Rápido</b><a href="#/">Home</a><br><a href="#/imoveis?neg=aluguel">Alugar</a><br><a href="#/imoveis?neg=venda">Comprar</a><br><a href="#/imoveis?neg=temporada">Temporada</a><br><a href="#/sobre">Empresa</a><br><a href="#/favoritos">Favoritos</a><br><a href="#/contato">Contato</a><br><a href="#/cliente">Área do Cliente</a><br><a href="#/painel" style="color:var(--dourado)">Equipe AD7</a></div>'
     + '<div style="font-size:15px;font-weight:300;line-height:1.7"><b>Contatos</b>' + esc(C.nome) + '<br>' + esc(C.endereco) + '<br>' + esc(C.cidade) + '<br><a href="' + wa() + '" target="_blank" rel="noopener">' + fone(C.whatsapp) + '</a><br><a href="' + wa('', C.whatsappAdriana) + '" target="_blank" rel="noopener">' + fone(C.whatsappAdriana) + '</a><br>' + esc(C.fixo) + '<br><a href="mailto:' + esc(C.email) + '">' + esc(C.email) + '</a></div>';
