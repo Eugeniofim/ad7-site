@@ -9,7 +9,7 @@
    ===================================================== */
 'use strict';
 
-const APP_VERSAO = '0.2.0';
+const APP_VERSAO = '0.2.1';
 const FAV_KEY = 'ad7_fav_v1', COOKIE_KEY = 'ad7_cookies_v1';
 const C = APP_CONFIG;
 const $ = (s, el) => (el || document).querySelector(s);
@@ -116,7 +116,7 @@ function vInicio() {
     + '<label class="oculto" for="b-bairro">Bairro</label><select id="b-bairro" name="bairro">' + opts(o.bairros, '', 'Qual Bairro?') + '</select>'
     + '<a class="mais" href="#/imoveis?abrir=1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>Mais filtros</a>'
     + '<button type="submit" class="btn btn-navy">BUSCAR</button></form>'
-    + '<div class="links"><a href="#/imoveis?foco=ref">Busca por Código</a><a href="#estilo">Busca por Estilo de Vida</a></div>'
+    + '<div class="links"><a href="#/imoveis?foco=ref">Busca por Código</a><a href="#/" data-act="rolar" data-alvo="estilo">Busca por Estilo de Vida</a></div>'
     + '</div></section>'
     + secao('Temporada no litoral do Paraná', 'Casas e apartamentos mobiliados a passos da praia, em Pontal do Sul e região, com calendário de datas disponíveis. Reserve o fim de ano antes que acabe.', carrossel('c-temporada', temporada), linkBusca({ neg: 'temporada' }))
     + secao('Casas à Venda em Pontal do Paraná', 'Da casa de praia simples ao sobrado em condomínio: imóveis escriturados, com a documentação conferida pela AD7 antes de anunciar.', carrossel('c-casas', casas), linkBusca({ neg: 'venda', tipo: 'Casa' }))
@@ -138,6 +138,7 @@ function vInicio() {
 function vBusca(q) {
   const f = { neg: q.neg || '', tipo: q.tipo || '', cidade: q.cidade || '', bairro: q.bairro || '', q: q.q || '', min: q.min || '', max: q.max || '', dorm: q.dorm || '', vagas: q.vagas || '', mar: q.mar || '', piscina: q.piscina || '', mobiliado: q.mobiliado || '', perfil: q.perfil || '', ordem: q.ordem || 'recentes' };
   const o = opcoes(f), lista = filtrar(f);
+  const pag = Math.max(1, parseInt(q.pag, 10) || 1), POR_PAG = 24, mostra = lista.slice(0, POR_PAG * pag);
   const titulo = lista.length + ' ' + (f.tipo ? f.tipo + (lista.length === 1 ? '' : 's') : (lista.length === 1 ? 'Imóvel' : 'Imóveis')) + (f.neg ? ' ' + TRANS_VERBO[f.neg] : '') + (f.bairro ? ' em ' + f.bairro : f.cidade ? ' em ' + f.cidade : ' no litoral do Paraná');
   const aba = (v, rot) => '<label><input type="radio" name="neg" value="' + v + '"' + (f.neg === v ? ' checked' : '') + '><span>' + rot + '</span></label>';
   const pil = (nome, atual) => '<div class="pilulas">' + ['', '1', '2', '3', '4'].map(v => '<label><input type="radio" name="' + nome + '" value="' + v + '"' + (atual === v ? ' checked' : '') + '>' + (v ? v + (v === '4' ? '+' : '') : 'Todos') + '</label>').join('') + '</div>';
@@ -145,17 +146,17 @@ function vBusca(q) {
   return '<div class="wrap lista">'
     + '<form class="filtros' + (q.abrir ? '' : ' fechado') + '" id="filtros" data-form="filtros">'
     + '<div class="abas">' + aba('venda', 'Comprar') + aba('aluguel', 'Alugar') + aba('temporada', 'Temporada') + '</div>'
-    + '<label class="campo">Buscar por código ou palavra <input type="search" name="q" value="' + esc(f.q) + '" placeholder="ex.: 406, piscina, Atami"' + (q.foco === 'ref' ? ' autofocus' : '') + '></label>'
+    + '<label class="campo">Buscar por código ou palavra <input type="search" name="q" value="' + esc(f.q) + '" placeholder="ex.: 406, piscina, Atami…" autocomplete="off"></label>'
     + '<label class="campo">Tipo de Imóvel <select name="tipo">' + opts(o.tipos, f.tipo, 'Todos') + '</select></label>'
     + '<label class="campo">Cidade <select name="cidade">' + opts(o.cidades, f.cidade, 'Todas') + '</select></label>'
     + '<label class="campo">Bairro <select name="bairro">' + opts(o.bairros, f.bairro, 'Selecione o Bairro') + '</select></label>'
-    + '<h3>Dependências</h3><label class="campo">Quartos ' + pil('dorm', f.dorm) + '</label><label class="campo">Vagas ' + pil('vagas', f.vagas) + '</label>'
-    + '<h3>Valores</h3><div class="duas" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><label class="campo">R$ Mínimo <input type="number" name="min" inputmode="numeric" value="' + esc(f.min) + '"></label><label class="campo">R$ Máximo <input type="number" name="max" inputmode="numeric" value="' + esc(f.max) + '"></label></div>'
-    + '<h3>Características</h3>' + marca('mar', 'Próximo ao mar', f.mar) + marca('piscina', 'Com piscina', f.piscina) + marca('mobiliado', 'Mobiliado', f.mobiliado)
+    + '<div class="grupo">Dependências</div><div class="campo" role="group" aria-label="Quartos"><span style="font-size:13px;color:var(--suave)">Quartos</span>' + pil('dorm', f.dorm) + '</div><div class="campo" role="group" aria-label="Vagas"><span style="font-size:13px;color:var(--suave)">Vagas</span>' + pil('vagas', f.vagas) + '</div>'
+    + '<div class="grupo">Valores</div><div class="duas" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><label class="campo">R$ Mínimo <input type="number" name="min" inputmode="numeric" value="' + esc(f.min) + '" placeholder="ex.: 200000"></label><label class="campo">R$ Máximo <input type="number" name="max" inputmode="numeric" value="' + esc(f.max) + '" placeholder="ex.: 800000"></label></div>'
+    + '<div class="grupo">Características</div>' + marca('mar', 'Próximo ao mar', f.mar) + marca('piscina', 'Com piscina', f.piscina) + marca('mobiliado', 'Mobiliado', f.mobiliado)
     + '<div class="acoes"><a href="#/imoveis?abrir=1" class="btn btn-line">LIMPAR</a><button type="submit" class="btn btn-navy">BUSCAR</button></div></form>'
     + '<div class="resultados"><h1>' + esc(titulo) + '</h1><nav class="caminho" aria-label="Caminho"><a href="#/">Home</a> › ' + (f.neg ? '<a href="' + linkBusca({ neg: f.neg }) + '">' + TRANS[f.neg] + '</a> › ' : '') + esc(f.tipo || 'Imóveis') + (f.bairro ? ' em ' + esc(f.bairro) : '') + '</nav>'
     + '<div class="encontrados"><span>Encontramos ' + lista.length + ' ' + (lista.length === 1 ? 'imóvel' : 'imóveis') + ' com seus critérios de busca</span><div style="display:flex;gap:8px;align-items:center"><button type="button" class="btn btn-line btn-p abrir-filtros" data-act="filtros">Filtros</button><label class="oculto" for="ordem">Ordenar</label><select id="ordem" data-act="ordem"><option value="recentes"' + (f.ordem === 'recentes' ? ' selected' : '') + '>Ordenar</option><option value="menor"' + (f.ordem === 'menor' ? ' selected' : '') + '>Menor Preço</option><option value="maior"' + (f.ordem === 'maior' ? ' selected' : '') + '>Maior Preço</option></select></div></div>'
-    + grade(lista, 'grid-2') + '</div></div>';
+    + grade(mostra, 'grid-2') + (mostra.length < lista.length ? '<div class="centro"><a class="btn btn-navy" href="' + linkBusca({ ...f, ordem: f.ordem === 'recentes' ? '' : f.ordem, pag: pag + 1 }) + '">MOSTRAR MAIS IMÓVEIS (' + (lista.length - mostra.length) + ')</a></div>' : '') + '</div></div>';
 }
 
 /* ---------- IMÓVEL ---------- */
@@ -202,7 +203,7 @@ function vImovel(ref) {
   const mapa = im.lat && im.lng && im.mostrarMapa ? '<div class="mapa"><span>' + esc(im.endereco.mostrarExato ? 'Endereço exato no mapa.' : 'A localização exata é informada na visita.') + '</span><a class="btn btn-line btn-p" target="_blank" rel="noopener" href="https://www.google.com/maps?q=' + esc(im.lat) + ',' + esc(im.lng) + '">Abrir no Google Maps</a></div>' : '';
   const lista = (t, l) => l && l.length ? '<details open><summary>' + EMBLEMA_P + t + '</summary><ul class="pontos">' + l.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></details>' : '';
   const ficha = [['Perfil', im.perfil + (im.transacao === 'temporada' ? ' · temporada' : '')], ['Situação', [im.situacao, im.mobiliado].filter(Boolean).join(', ')], ['Próximo ao mar', im.proximoMar >= 3 ? 'Sim' : im.proximoMar === 2 ? 'Médio' : 'Não informado'], ['Escriturado', im.escriturado ? 'Sim' : 'Não informado'], ['Averbado', im.averbado ? 'Sim' : 'Não informado'], ['Aceita financiamento', im.financiavel ? 'Sim' : 'Consulte'], ['Aceita permuta', im.aceitaPermuta ? 'Sim' : 'Não']];
-  return '<section class="im-heroi" data-act="lb" data-i="0" style="background-image:url(' + esc(im.capa) + ')"><div class="wrap"><div><nav class="caminho" aria-label="Caminho" style="color:#C9D1D6;margin-bottom:10px"><a href="#/" style="color:#fff">Início</a> › <a href="' + linkBusca({ neg: im.transacao }) + '" style="color:#fff">' + TRANS[im.transacao] + '</a> › <a href="' + linkBusca({ cidade: im.cidade, bairro: im.bairro }) + '" style="color:#fff">' + esc(im.bairro) + '</a></nav><h1>' + esc(tituloGenerico(im)) + '</h1><div class="end">' + esc(endereco) + '</div></div><span class="fotos">' + ICO.foto.replace('viewBox', 'width="18" height="18" style="stroke:#fff;fill:none;stroke-width:1.6" viewBox') + im.fotos.length + ' fotos</span></div></section>'
+  return '<section class="im-heroi" style="background-image:url(' + esc(im.capa) + ')"><div class="wrap"><div><nav class="caminho" aria-label="Caminho" style="color:#C9D1D6;margin-bottom:10px"><a href="#/" style="color:#fff">Início</a> › <a href="' + linkBusca({ neg: im.transacao }) + '" style="color:#fff">' + TRANS[im.transacao] + '</a> › <a href="' + linkBusca({ cidade: im.cidade, bairro: im.bairro }) + '" style="color:#fff">' + esc(im.bairro) + '</a></nav><h1>' + esc(tituloGenerico(im)) + '</h1><div class="end">' + esc(endereco) + '</div></div><button type="button" class="fotos" data-act="lb" data-i="0">' + ICO.foto.replace('viewBox', 'width="18" height="18" style="stroke:#fff;fill:none;stroke-width:1.6" viewBox') + 'Ver as ' + im.fotos.length + ' fotos</button></div></section>'
     + '<section class="im-numeros"><div class="wrap">' + num.map(([i, v, r]) => '<div>' + i + '<div>' + (v !== '' ? '<b>' + esc(v) + '</b><br>' : '') + '<span>' + esc(r) + '</span></div></div>').join('') + '</div></section>'
     + '<div class="wrap im-corpo"><div class="im-main">'
     + (im.fotos.length > 1 ? '<div class="mosaico">' + im.fotos.slice(1, 4).map((f, i) => '<button type="button" data-act="lb" data-i="' + (i + 1) + '" aria-label="Abrir foto ' + (i + 2) + '"><img src="' + esc(f) + '" alt="Foto ' + (i + 2) + ' de ' + im.fotos.length + '" loading="lazy"></button>').join('') + '</div>' : '')
@@ -218,7 +219,7 @@ function vImovel(ref) {
     + '<a class="btn btn-gold btn-quad" target="_blank" rel="noopener" href="' + wa(msgWa, C.whatsappAdriana) + '">' + ICO.wa.replace('viewBox', 'width="20" height="20" style="stroke:currentColor;fill:none;stroke-width:1.8" viewBox') + 'Fale pelo WhatsApp</a>'
     + '<div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost btn-p" data-act="fav" data-ref="' + esc(im.ref) + '" aria-pressed="' + fav + '" style="flex:1">' + (fav ? '♥ Salvo' : '♡ Favoritar') + '</button><a class="btn btn-ghost btn-p" style="flex:1" target="_blank" rel="noopener" href="' + wa('Olha este imóvel da AD7: ' + tituloGenerico(im) + ' (Ref. ' + im.ref + ') ' + location.href, '') + '">Compartilhar</a></div></div>'
     + '<form class="caixa f" data-form="pedido" data-tipo="interesse" data-ref="' + esc(im.ref) + '" id="form-interesse"><h3>Entre em contato</h3>'
-    + '<label>Nome <input name="nome" autocomplete="name" required></label><label>Email <input name="email" type="email" autocomplete="email"></label><label>Telefone ou WhatsApp <input name="telefone" type="tel" autocomplete="tel" required></label>'
+    + '<label>Nome <input name="nome" autocomplete="name" required></label><label>Email <input name="email" type="email" autocomplete="email" spellcheck="false" autocapitalize="none"></label><label>Telefone ou WhatsApp <input name="telefone" type="tel" autocomplete="tel" placeholder="ex.: (41) 99999-9999" required></label>'
     + '<label>Sua mensagem <textarea name="mensagem">Olá! Tenho interesse no imóvel código ' + esc(im.ref) + '. Gostaria de mais informações e de agendar uma visita.</textarea></label>'
     + '<label class="aceite"><input type="checkbox" name="aceite"> Autorizo a AD7 a usar estes dados só para responder a este pedido. <a href="privacidade.html">Política de privacidade</a></label>'
     + '<div class="aviso erro" hidden data-aviso></div><button type="submit" class="btn btn-navy btn-quad" style="text-transform:uppercase;font-size:14px">ENVIAR</button>'
@@ -256,7 +257,11 @@ function vCliente() {
     + '<div class="bloco navy"><span class="rotulo gold">Prefere falar com alguém?</span><h3>A ' + esc(C.dona) + ' responde no WhatsApp</h3><p>' + esc(C.horario) + '. Fora desse horário, mande a mensagem que a equipe retoma no dia seguinte.</p><div class="acoes"><a class="btn btn-wa btn-quad" target="_blank" rel="noopener" href="' + wa('', C.whatsappAdriana) + '">Chamar no WhatsApp</a></div><div style="font-size:13px;color:#8A98A2">Equipe AD7? <a href="#/entrar" style="color:#C9D1D6">Entrar no painel</a></div></div>'
     + '</section></div>';
 }
-function campo(nome, rot, attrs) { return '<label>' + rot + ' <input name="' + nome + '" ' + (attrs || '') + '></label>'; }
+function campo(nome, rot, attrs) {
+  const extra = nome === 'email' ? ' spellcheck="false" autocapitalize="none"' : nome === 'telefone' ? ' placeholder="ex.: (41) 99999-9999"' : '';
+  return '<label>' + rot + ' <input name="' + nome + '" ' + (attrs || '') + extra + '></label>';
+}
+function campoDoErro(msg) { return /nome/i.test(msg) ? 'nome' : /WhatsApp/.test(msg) ? 'telefone' : /e-mail/i.test(msg) ? 'email' : /CPF/.test(msg) ? 'cpf' : /aceite/i.test(msg) ? 'aceite' : ''; }
 function vServico(id) {
   const s = [...SERVICOS.inquilino, ...SERVICOS.proprietario].find(x => x.id === id);
   if (!s) return vCliente();
@@ -401,13 +406,15 @@ async function render() {
   const chave = r.nome + '/' + r.param + '/' + r.sub;
   if (chave !== ROTA_ANTES) window.scrollTo(0, 0);
   ROTA_ANTES = chave;
+  if (r.nome === 'imoveis' && r.query.foco === 'ref' && window.matchMedia && matchMedia('(pointer: fine)').matches) { const i = $('input[name=q]'); if (i) i.focus(); }
   $('#menu-cel').classList.remove('aberto'); $('#hamb').setAttribute('aria-expanded', 'false');
   cabecalhoRolagem();
 }
 
 /* ---------- eventos ---------- */
 function dadosForm(form) { const d = {}; const extra = {}; for (const [k, v] of new FormData(form).entries()) { if (k.startsWith('extra_')) extra[k.slice(6)] = String(v).trim(); else d[k] = v; } d.extra = extra; d.aceite = form.elements.aceite ? form.elements.aceite.checked : false; if (form.elements.extra_autoriza && !form.elements.extra_autoriza.checked) d.extra.autoriza = ''; return d; }
-function aviso(form, texto, cls) { const a = form.querySelector('[data-aviso]'); if (!a) return; a.className = 'aviso ' + (cls || 'erro'); a.textContent = texto; a.hidden = !texto; }
+function aviso(form, texto, cls) { const a = form.querySelector('[data-aviso]'); if (!a) return; a.className = 'aviso ' + (cls || 'erro'); a.setAttribute('role', (cls || 'erro') === 'erro' ? 'alert' : 'status'); a.textContent = texto; a.hidden = !texto; }
+const movimentoReduzido = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.addEventListener('submit', async e => {
   const form = e.target; const tipo = form.dataset.form; if (!tipo) return;
@@ -423,7 +430,7 @@ document.addEventListener('submit', async e => {
     if (form.dataset.tipo === 'anuncio' && !form.elements.extra_autoriza.checked) { aviso(form, 'Marque a autorização para a AD7 avaliar o imóvel.'); return; }
     const bt = form.querySelector('button[type=submit]'); const rot = bt.textContent; bt.disabled = true; bt.textContent = 'Enviando…';
     const r = await enviarPedido(form.dataset.tipo, d);
-    if (!r.ok) { aviso(form, r.erro); bt.disabled = false; bt.textContent = rot; return; }
+    if (!r.ok) { aviso(form, r.erro); bt.disabled = false; bt.textContent = rot; const c = form.elements[campoDoErro(r.erro)]; if (c && c.focus) c.focus(); return; }
     const nome = r.pedido.nome.split(' ')[0];
     form.innerHTML = '<div class="aviso ok"><b>Pronto, ' + esc(nome) + '!</b> ' + (r.nuvem ? 'Seu pedido chegou na AD7 (nº ' + esc(r.pedido.id) + '). A ' + esc(C.dona) + ' responde no WhatsApp.' : 'Seu pedido está anotado (nº ' + esc(r.pedido.id) + '). Para a AD7 receber agora, mande também pelo WhatsApp com um toque:') + '</div><a class="btn btn-wa btn-quad" target="_blank" rel="noopener" href="' + r.whatsapp + '">' + (r.nuvem ? 'Adiantar no WhatsApp' : 'Mandar pelo WhatsApp') + '</a>';
     return;
@@ -451,8 +458,10 @@ document.addEventListener('click', async e => {
   if (act === 'fav') { e.preventDefault(); const on = favToggle(el.dataset.ref); el.classList.toggle('on', on); el.setAttribute('aria-pressed', on); if (el.classList.contains('fav')) el.innerHTML = on ? ICO.coracaoCheio : ICO.coracao; else el.textContent = on ? '♥ Salvo' : '♡ Favoritar'; return; }
   if (act === 'cookies-sim' || act === 'cookies-nao') { try { localStorage.setItem(COOKIE_KEY, act === 'cookies-sim' ? 'sim' : 'nao'); } catch (x) {} $('#cookies').hidden = true; return; }
   if (act === 'filtros') { $('#filtros').classList.toggle('fechado'); return; }
-  if (act === 'seta') { const c = document.getElementById(el.dataset.alvo); if (c) c.scrollBy({ left: (+el.dataset.dir || 1) * c.clientWidth, behavior: 'smooth' }); return; }
-  if (act === 'lb') { if (e.target.closest('a')) return; LB.i = +el.dataset.i || 0; lightbox(true); return; }
+  if (act === 'seta') { const c = document.getElementById(el.dataset.alvo); if (c) c.scrollBy({ left: (+el.dataset.dir || 1) * c.clientWidth, behavior: movimentoReduzido() ? 'auto' : 'smooth' }); return; }
+  if (act === 'rolar') { e.preventDefault(); const alvo = document.getElementById(el.dataset.alvo); if (alvo) alvo.scrollIntoView({ behavior: movimentoReduzido() ? 'auto' : 'smooth', block: 'start' }); return; }
+  if (act === 'pular') { e.preventDefault(); const m = $('#app'); m.focus(); m.scrollIntoView({ block: 'start' }); return; }
+  if (act === 'lb') { LB.i = +el.dataset.i || 0; LB.abriu = el; lightbox(true); return; }
   if (act === 'lb-fechar') { lightbox(false); return; }
   if (act === 'lb-ant') { LB.i = (LB.i - 1 + LB.fotos.length) % LB.fotos.length; lightbox(true); return; }
   if (act === 'lb-prox') { LB.i = (LB.i + 1) % LB.fotos.length; lightbox(true); return; }
@@ -466,8 +475,9 @@ document.addEventListener('change', e => {
 });
 document.addEventListener('keydown', e => { if ($('#lightbox').hidden) return; if (e.key === 'Escape') lightbox(false); if (e.key === 'ArrowRight') { LB.i = (LB.i + 1) % LB.fotos.length; lightbox(true); } if (e.key === 'ArrowLeft') { LB.i = (LB.i - 1 + LB.fotos.length) % LB.fotos.length; lightbox(true); } });
 function lightbox(abrir) {
-  const lb = $('#lightbox'); lb.hidden = !abrir;
-  if (abrir && LB.fotos.length) { $('#lb-img').src = LB.fotos[LB.i]; $('#lb-img').alt = 'Foto ' + (LB.i + 1); $('#lb-n').textContent = (LB.i + 1) + ' / ' + LB.fotos.length; }
+  const lb = $('#lightbox'); const estava = !lb.hidden; lb.hidden = !abrir;
+  if (abrir && LB.fotos.length) { $('#lb-img').src = LB.fotos[LB.i]; $('#lb-img').alt = 'Foto ' + (LB.i + 1) + ' de ' + LB.fotos.length; $('#lb-n').textContent = (LB.i + 1) + ' / ' + LB.fotos.length; if (!estava) $('#lb-fechar').focus(); }
+  if (!abrir && estava && LB.abriu && LB.abriu.isConnected) LB.abriu.focus();
   document.body.style.overflow = abrir ? 'hidden' : '';
 }
 $('#hamb').addEventListener('click', () => { const m = $('#menu-cel'); m.classList.toggle('aberto'); $('#hamb').setAttribute('aria-expanded', m.classList.contains('aberto')); });
