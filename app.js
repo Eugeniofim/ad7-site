@@ -9,7 +9,7 @@
    ===================================================== */
 'use strict';
 
-const APP_VERSAO = '0.2.4';
+const APP_VERSAO = '0.3.0';
 const FAV_KEY = 'ad7_fav_v1', COOKIE_KEY = 'ad7_cookies_v1';
 const C = APP_CONFIG;
 const $ = (s, el) => (el || document).querySelector(s);

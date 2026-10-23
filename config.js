@@ -26,15 +26,15 @@ var APP_CONFIG = {
   facebook: 'https://www.facebook.com/profile.php?id=100094268002270',
   horario: 'Segunda a sábado, das 9h às 18h',
 
-  supabaseUrl: '',   /* vazio = sem banco ainda. Com sala: o projeto Pro do estúdio */
-  supabaseKey: '',   /* a chave "publishable" do projeto; nunca a secreta */
-  sala: '',          /* schema do banco (ex.: 'ad7'); vazio = sem banco */
+  supabaseUrl: 'https://uopfqlogjzuqpabptxkb.supabase.co',   /* projeto Pro da Ti Artes (sala ad7) */
+  supabaseKey: 'sb_publishable_VKIdd2RNpMf3e4IEDprxJw_TOKPIHT2',   /* a publicável: quem protege é a RLS da sala */
+  sala: 'ad7',
 };
 
 /* O que o publicar.sh grava no config.js da cópia publicada (nunca aqui no fonte). */
 var APP_NUVEM_PRODUCAO = {
-  supabaseUrl: '',
-  supabaseKey: '',
+  supabaseUrl: 'https://uopfqlogjzuqpabptxkb.supabase.co',   /* projeto Pro da Ti Artes (sala ad7, criada 23/10/2026) */
+  supabaseKey: 'sb_publishable_VKIdd2RNpMf3e4IEDprxJw_TOKPIHT2',   /* a publicável: quem protege é a RLS da sala */
   sala: 'ad7',
   endereco: 'https://ad7.eugeniofim.com',   /* por enquanto no estúdio; o domínio dela (ad7imoveis.com.br) está no Tecimob */
 };
