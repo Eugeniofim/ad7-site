@@ -25,6 +25,20 @@ var APP_CONFIG = {
   instagram: 'https://www.instagram.com/ad7imoveis',
   facebook: 'https://www.facebook.com/profile.php?id=100094268002270',
   horario: 'Segunda a sábado, das 9h às 18h',
+  horarioSchema: 'Mo-Sa 09:00-18:00',
+  rua: 'Av. Beira Mar, 210',
+  bairro: 'Pontal do Sul',
+  municipio: 'Pontal do Paraná',
+  uf: 'PR',
+  cep: '83255-000',
+  maps: 'https://maps.google.com/?cid=785296183325086214',   /* ficha "AD7 Imóveis| Pontal do Sul" no Google Maps (4,1 · 13 avaliações em 31/10/2026) */
+  lat: -25.5819498,
+  lng: -48.3625362,
+  siteOficial: 'https://ad7.eugeniofim.com',   /* usado nos dados para o Google (og:image, canonical de reserva) */
+  /* a home: os vídeos do YouTube e as listas escolhidas à mão, como no site antigo dela (31/10/2026).
+     A vitrine pode ser trocada no painel (#/painel/vitrine); isto é só o ponto de partida. */
+  videos: [{ url: 'https://www.youtube.com/watch?v=2JUB-LdPk3c', titulo: 'Vídeo 1 da AD7' }, { url: 'https://www.youtube.com/watch?v=Y-FaMa0-9Xk', titulo: 'Vídeo 2 da AD7' }, { url: 'https://www.youtube.com/watch?v=1hMZ0qO3gWk', titulo: 'Vídeo 3 da AD7' }],
+  vitrine: { oportunidade: ['315', '392', '408'], slide: [] },
 
   supabaseUrl: 'https://uopfqlogjzuqpabptxkb.supabase.co',   /* projeto Pro da Ti Artes (sala ad7) */
   supabaseKey: 'sb_publishable_VKIdd2RNpMf3e4IEDprxJw_TOKPIHT2',   /* a publicável: quem protege é a RLS da sala */

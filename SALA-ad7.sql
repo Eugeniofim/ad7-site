@@ -99,3 +99,9 @@ grant execute on function ad7.is_owner() to anon, authenticated, service_role;
 select 'sala ad7 pronta' as status;
 -- depois, com o login criado:  update ad7.app_config set owner_uid = '<uid>' where id = 1;
 
+
+-- calendário de temporada: o site lê sem login; só a dona grava (itens_dona)
+drop policy if exists itens_disponibilidade_publica on ad7.itens;
+create policy itens_disponibilidade_publica on ad7.itens for select to anon, authenticated
+  using (colecao = 'disponibilidade' and apagado = false);
+grant select on ad7.itens to anon;

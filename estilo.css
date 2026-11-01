@@ -364,3 +364,93 @@ footer.rod .social { display: flex; gap: 14px; margin: 12px 0 6px; } footer.rod 
   .wa-flut { bottom: 16px; right: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } .card:hover .foto img { transform: none; } }
+
+/* ---------- calendário de temporada (disponibilidade.js) ---------- */
+.dispo, .dispo-editor { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.cal-titulo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.cal-titulo h2 { margin: 0; }
+.cal-cab { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+.cal-nav { display: flex; gap: 6px; margin-left: auto; }
+.cal-seta { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid #D5DBDF; background: #fff; color: var(--marinho); font: inherit; font-size: 20px; line-height: 1; cursor: pointer; padding: 0; }
+.cal-seta:hover { border-color: var(--marinho); }
+.cal-seta[disabled] { opacity: .35; cursor: default; }
+.cal-meses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.cal-nome { font-weight: 600; margin-bottom: 8px; text-transform: capitalize; font-size: 15px; }
+.cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; text-align: center; font-size: 13px; }
+.cal .cabd { color: var(--suave); font-size: 11px; font-weight: 600; }
+.cal .dia { min-height: 38px; display: flex; align-items: center; justify-content: center; font: inherit; font-size: 13px; font-weight: 500; background: var(--teal-claro); color: var(--marinho); border: 0; border-radius: 6px; padding: 0; cursor: pointer; }
+.cal .dia.res { background: var(--linha); color: #8A98A2; text-decoration: line-through; }
+.cal .dia.blq { background: repeating-linear-gradient(135deg, #E3E7EA 0 4px, #F6F7F6 4px 8px); color: #8A98A2; }
+.cal .dia.passado { background: transparent; color: #B5BDC3; cursor: default; }
+.cal .dia.hoje { box-shadow: inset 0 0 0 2px var(--dourado); }
+.cal .dia.sel { background: var(--marinho); color: #fff; text-decoration: none; }
+.cal button.dia:hover { filter: brightness(.94); }
+.legenda { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--suave); }
+.legenda i { display: inline-block; width: 12px; height: 12px; vertical-align: -2px; margin-right: 6px; border-radius: 3px; }
+.legenda .l-livre { background: var(--teal-claro); } .legenda .l-res { background: var(--linha); } .legenda .l-blq { background: repeating-linear-gradient(135deg, #E3E7EA 0 3px, #F6F7F6 3px 6px); } .legenda .l-sel { background: var(--marinho); }
+.dispo-modos { display: flex; flex-wrap: wrap; gap: 6px; }
+.dispo-modo { min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #D5DBDF; background: #fff; font: inherit; font-size: 13px; font-weight: 600; color: var(--suave); cursor: pointer; }
+.dispo-modo.on { background: var(--marinho); color: #fff; border-color: var(--marinho); }
+.dispo-aviso { background: var(--ok-fundo); color: var(--teal2); padding: 10px 14px; border-radius: 8px; font-size: 14px; }
+.dispo-aviso.erro { background: var(--erro-fundo); color: var(--erro); }
+.dispo-dica { font-size: 14px; color: var(--suave); margin: 0; line-height: 1.5; }
+.dispo-link { background: none; border: 0; padding: 0; font: inherit; font-size: 14px; color: var(--teal2); text-decoration: underline; cursor: pointer; }
+.dispo-prox { font-size: 13px; font-weight: 600; color: var(--teal2); background: var(--teal-claro); padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+.dispo-acao { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.dispo-conta { display: flex; flex-direction: column; gap: 6px; padding: 12px 16px; border: 1px solid var(--linha); border-radius: 10px; font-size: 15px; }
+.dispo-conta > div { display: flex; justify-content: space-between; gap: 12px; }
+.dispo-conta > div:last-child { border-top: 1px solid var(--linha); padding-top: 6px; }
+.dispo-regras { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; font-size: 13px; color: var(--suave); }
+.dispo-regras label { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.dispo-regras span { display: inline-flex; align-items: center; gap: 4px; }
+.dispo-regras input { width: 64px; min-height: 34px; padding: 0 8px; border: 1.5px solid #D5DBDF; border-radius: 6px; font: inherit; font-size: 14px; color: var(--marinho); }
+.dispo-resumo { font-size: 13px; color: var(--suave); }
+@media (max-width: 720px) { .cal-meses { grid-template-columns: minmax(0, 1fr); } .dispo-conta { font-size: 14px; } }
+
+
+/* ---------- parceiros (seguro fiança Loft · cobrança Imobia) ---------- */
+.parceiros { padding-bottom: 40px; }
+.parceiros-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 980px; margin: 0 auto; text-align: left; }
+.parceiro { display: flex; flex-direction: column; gap: 18px; padding: 28px 30px; background: var(--soft); text-decoration: none; color: var(--tinta); border-radius: 0 0 40px 0; transition: background-color .2s; }
+.parceiro:hover { background: #E8E8E2; color: var(--tinta); }
+.parceiro img { height: 48px; width: auto; max-width: 240px; object-fit: contain; object-position: left; }
+.parceiro > span { display: flex; flex-direction: column; gap: 4px; }
+.parceiro b { font-size: 19px; font-weight: 600; color: var(--preto); }
+.parceiro span span { font-size: 15px; font-weight: 300; color: var(--suave); line-height: 1.5; }
+.mapa-bloco { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 8px; }
+.mapa-bloco .nota { font-size: 13px; color: var(--suave); }
+.mapa-bloco iframe { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: 0 0 40px 0; }
+.avaliar { display: inline-block; margin-top: 12px; font-size: 14px; }
+.seo-imovel h2 { font-size: 22px; margin: 18px 0 6px; }
+.fotos-seo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 16px 0; }
+.fotos-seo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+@media (max-width: 720px) { .parceiros-grid, .fotos-seo { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- 0.6.0: preço anterior, vídeos, mapa do imóvel, ações, impressão ---- */
+.preco-antes { display: block; font-size: 15px; font-weight: 400; color: #8A98A2; text-decoration: line-through; margin-bottom: 2px; }
+.acoes-im { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mapa iframe { width: 100%; height: 320px; border: 0; display: block; margin-top: 12px; }
+.videos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.video { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; background: var(--marinho2) center / cover no-repeat; cursor: pointer; overflow: hidden; }
+.video::after { content: ""; position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(5,33,45,.85) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M9 6l9 6-9 6z'/%3E%3C/svg%3E") center / 32px no-repeat; }
+.video:focus-visible { outline: 3px solid var(--dourado); outline-offset: 3px; }
+.video iframe { width: 100%; height: 100%; border: 0; display: block; }
+.video-im { aspect-ratio: 16 / 9; }
+.vistos h2 { font-size: 28px; }
+@media (max-width: 760px) { .videos { grid-template-columns: 1fr; } }
+@media print {
+  .cab, .rod, .wa-flut, .cookies, .lightbox, .chame, .im-lado form, .acoes-im, .mosaico, .sec, .caminho, .im-heroi .fotos, .pular { display: none !important; }
+  body { background: #fff; color: #000; }
+  .im-heroi { background: none !important; color: #000; min-height: 0; padding: 0; }
+  .im-heroi h1, .im-heroi .end { color: #000 !important; text-shadow: none; }
+  .im-corpo { display: block; }
+  .im-lado { position: static; max-width: none; }
+  .caixa-preco { background: none; color: #000; border: 1px solid #999; }
+  .caixa-preco .valor, .caixa-preco h2 { color: #000; }
+  details { break-inside: avoid; }
+  details:not([open]) summary ~ * { display: block; }
+  .fotos-imprimir { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .fotos-imprimir img { width: 100%; height: auto; }
+  a[href]::after { content: ""; }
+}
+.fotos-imprimir { display: none; }
