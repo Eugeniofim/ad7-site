@@ -1,9 +1,1 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>AD7 Imóveis</title>
-<script>
-/* endereços do site antigo (Tecimob): /imovel/<slug>/<ref> → /imovel/<ref>/ ; /comprar|alugar|temporada/<tipo>/... → busca */
-var p = location.pathname, m = p.match(/^\/imovel\/(?:[^/]+\/)?(\d+)\/?$/);
-var n = p.match(/^\/(comprar|alugar|temporada)(?:\/([^/]+))?/);
-if (m) location.replace('/imovel/' + m[1] + '/');
-else if (n) location.replace('/#/imoveis?neg=' + ({ comprar: 'venda', alugar: 'aluguel', temporada: 'temporada' })[n[1]] + (n[2] ? '&tipo=' + encodeURIComponent(n[2].charAt(0).toUpperCase() + n[2].slice(1)) : ''));
-else location.replace('/' + (location.hash || ''));
-</script></head><body>Redirecionando…</body></html>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Imobiliária Milla · demonstração</title><meta http-equiv="refresh" content="0; url=https://rottaguide.com/milla/imobiliaria/"><link rel="canonical" href="https://rottaguide.com/milla/imobiliaria/"><script>location.replace("https://rottaguide.com/milla/imobiliaria/"+(location.pathname.indexOf("/gestao")>=0?"gestao/":""))</script></head><body>Esta página mudou para <a href="https://rottaguide.com/milla/imobiliaria/">rottaguide.com/milla/imobiliaria</a>.</body></html>

@@ -1,3 +1,2 @@
 User-agent: *
-Allow: /
-Sitemap: https://ad7.eugeniofim.com/sitemap.xml
+Disallow: /
